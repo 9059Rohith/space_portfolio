@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROHITH KUMAR DHAMGATLA - Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* * ======================================
+         * 1. GLOBAL & COLORS
+         * ======================================
+         */
+        :root {
+            --color-dark-purple: #0a041f;
+            --color-mid-purple: #1c1033;
+            --color-accent-blue: #a3daff;
+            --color-text-light: #f0f8ff;
+            --color-text-secondary: #aaaaaa;
+            --color-btn-primary: #8e59ff;
+            --color-glow-blue: rgba(163, 218, 255, 0.7);
+            --color-card-accent: #ffc107; 
+            --color-skill-bg: rgba(30, 15, 60, 0.6); 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-dark-purple);
+            color: var(--color-text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--color-accent-blue);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+        }
+        
+        section {
+            padding: 5rem 10%;
+            position: relative;
+            z-index: 2; 
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            letter-spacing: 0.15em;
+            color: var(--color-accent-blue);
+        }
+
+        .btn-general {
+            padding: 0.75rem 2rem;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--color-btn-primary);
+            color: var(--color-text-light);
+            box-shadow: 0 0 10px rgba(142, 89, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border-color: var(--color-accent-blue);
+            color: var(--color-accent-blue);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(142, 89, 255, 0.8);
+        }
+        
+        .btn-secondary:hover {
+             background-color: var(--color-accent-blue);
+             color: var(--color-dark-purple);
+        }
+        
+        /* * 2. NAV & PARTICLES (Background Layer)
+         */
+        #particles-js {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            z-index: 0;
+            /* Background image and overlay for all sections */
+             background: linear-gradient(
+                 180deg, 
+                 var(--color-mid-purple) 0%, 
+                 var(--color-dark-purple) 100% 
+             ), url('https://images.unsplash.com/photo-1534796303977-164c4c2a5146?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover fixed;
+            background-attachment: fixed;
+        }
+        
+        .particle {
+            position: absolute; 
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: twinkle linear infinite;
+            transform: translateZ(0); 
+            transition: none; /* Removed transition for smooth parallax in JS */
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* NEW: Asteroid Animation */
+        .asteroid {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .asteroid img {
+            width: 100%;
+            height: 100%;
+            filter: brightness(0.6) contrast(1.2);
+            animation: rotate-asteroid linear infinite;
+        }
+
+        @keyframes rotate-asteroid {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes drift-asteroid {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(var(--drift-x), var(--drift-y)) rotate(360deg);
+            }
+        }
+
+        /* NEW: Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            transform: translateX(-100px);
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-300px, 300px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* NEW: Floating Satellites */
+        .satellite {
+            position: absolute;
+            pointer-events: none;
+            z-index: 3;
+            font-size: 2rem;
+            color: var(--color-accent-blue);
+            animation: float-satellite ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(163, 218, 255, 0.6));
+        }
+
+        @keyframes float-satellite {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        /* NEW: Nebula Clouds */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: nebula-pulse ease-in-out infinite;
+        }
+
+        @keyframes nebula-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+        }
+
+        /* NEW: Planet Rings */
+        .planet-ring {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+            border: 3px solid rgba(163, 218, 255, 0.3);
+            border-radius: 50%;
+            animation: rotate-ring linear infinite;
+        }
+
+        @keyframes rotate-ring {
+            from { transform: rotateX(60deg) rotateZ(0deg); }
+            to { transform: rotateX(60deg) rotateZ(360deg); }
+        }
+
+        .navbar {
+            position: fixed; 
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            padding: 1rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(10, 4, 31, 0.98); 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-light);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-blue);
+        }
+
+        /* * 3. HERO SECTION (WITH SCROLL BLUR EFFECT)
+         */
+       /* Updated CSS for .hero-section to move it down */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: transparent; 
+    background-attachment: fixed; 
+    /* THIS IS THE MODIFICATION: Pushes the entire section down 200px */
+    margin-top: 100px; /* Increased from 40px to 200px */
+}
+        
+        /* Blur Overlay */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            background: linear-gradient(to top, var(--color-mid-purple) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 15; 
+            opacity: 0; 
+            transition: opacity 0.5s ease-out;
+        }
+
+        .hero-section.scroll-blurry::after {
+            opacity: 1;
+            background: linear-gradient(to top, var(--color-dark-purple) 0%, var(--color-dark-purple) 10%, var(--color-mid-purple) 50%, transparent 100%);
+        }
+
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .moon-layer { z-index: 5; }
+     .moon {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 350px; 
+    height: 350px;
+    border-radius: 50%;
+    background-color: #f0f8ff;
+    box-shadow: 0 0 100px rgba(255, 255, 255, 0.6), 0 0 200px rgba(163, 218, 255, 0.3);
+    /* NEW: Added these 4 lines */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+/* NEW: Profile Picture Style */
+.profile-pic-moon {
+    width: 90%; /* Smaller than moon to show moon's glow/color */
+    height: 90%;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.5); /* Start small */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.profile-pic-moon.visible {
+    opacity: 1; /* Fully visible */
+    transform: scale(1); /* Full size */
+}
+        
+        /* New Astronaut Style - FIX 1: position: fixed */
+        .astronaut-layer {
+            z-index: 10; 
+            pointer-events: none;
+            position: fixed; /* Keep it fixed on the viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .astronaut-img {
+            position: absolute;
+            /* Initial position (top left of the page) */
+            top: 100px; 
+            left: 0; /* Set initial left to 0 for calculation to work */
+            width: 120px;
+            height: auto;
+            transform: translateZ(0); 
+            filter: drop-shadow(0 0 10px rgba(163, 218, 255, 0.5));
+            /* REMOVED transition: transform 0.1s linear; for JS smoothing */
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 20; 
+        }
+
+        .hero-title-small {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-accent-blue);
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-title-large {
+            font-family: 'Teko', sans-serif;
+            font-size: 6rem; 
+            margin: 0;
+            line-height: 1.1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .hero-subtitle {
+             font-size: 1.8rem;
+             margin-top: 0.5rem;
+             color: var(--color-btn-primary);
+             font-weight: 500;
+             animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-summary {
+            max-width: 800px;
+            margin: 1.5rem auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .hero-ctas {
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* * 4. INTERN SECTION
+         */
+        .intern-section {
+            background-color: transparent;
+            padding-bottom: 8rem;
+            position: relative;
+        }
+        
+        .intern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .intern-card {
+            background-color: transparent;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .intern-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-btn-primary);
+            box-shadow: 0 0 25px rgba(142, 89, 255, 0.5);
+        }
+        
+        .intern-card h3 {
+            color: var(--color-card-accent);
+            margin-bottom: 0.5rem;
+        }
+        .intern-card .company {
+            color: var(--color-accent-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .divider-wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .wave-svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: var(--color-mid-purple); 
+            transform-origin: bottom;
+            filter: drop-shadow(0 -5px 10px rgba(163, 218, 255, 0.3));
+        }
+        
+        /* * 5. SKILLS & AWARDS SECTION (NEW GLOWING CARDS)
+         */
+        .skills-awards-section {
+             background-color: transparent;
+            padding-bottom: 8rem;
+            position: relative;
+            padding: 5rem 10%;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-list, .award-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .skill-card, .award-card-new {
+            background: linear-gradient(135deg, rgba(30, 15, 60, 0.7), rgba(10, 4, 31, 0.9));
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(163, 218, 255, 0.1);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .skill-card:hover, .award-card-new:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(142, 89, 255, 0.4);
+        }
+
+        .skill-card::before, .award-card-new::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(163, 218, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .skill-card:hover::before, .award-card-new:hover::before {
+            opacity: 1;
+        }
+
+        .skill-card h3, .award-card-new h4 {
+            color: var(--color-accent-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--color-btn-primary);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-card h3 i, .award-card-new h4 i {
+            color: var(--color-card-accent);
+            margin-right: 10px;
+        }
+
+        .skill-content, .award-content {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .award-card-new {
+            background: rgba(142, 89, 255, 0.15); 
+        }
+        
+        /* * 6. PROJECT FLIP CARDS (2x3 Grid)
+         */
+        .projects-section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            background-color: transparent; 
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            grid-auto-rows: 400px; 
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1500px; 
+            justify-content: center;
+        }
+        
+        .card-wrapper {
+            width: 100%;
+            height: 100%; 
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 5rem 2rem; 
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out; 
+        }
+        
+        .card-wrapper:hover .card-content {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: overlay;
+            color: white;
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+        
+        .card-front {
+            background-color: rgba(142, 89, 255, 0.3); 
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-front::before {
+            content: "";
+            position: absolute;
+            inset: 1rem;
+            border: 3px solid var(--color-accent-blue);
+            transform: translateZ(2rem);
+        }
+        .title {
+            font-family: "Teko", sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            line-height: 120%;
+            transform: translateZ(4.4rem);
+        }
+        .sub-title {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: translateZ(3rem);
+        }
+
+        .card-back {
+            background-color: rgba(0, 0, 0, 0.7); 
+            transform: rotateY(180deg);
+            gap: 0.5rem;
+            justify-content: flex-start; 
+            padding-top: 3rem;
+        }
+        .back-title {
+            font-family: "Teko", sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-card-accent);
+            text-transform: uppercase;
+            align-self: center;
+            transform: translateZ(2rem);
+            margin-bottom: 0.5rem;
+        }
+        .movie-description, .genre, .release-date {
+            transform: translateZ(1rem);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            padding: 0 1rem;
+        }
+        .card-back span {
+            font-weight: 600;
+            color: var(--color-card-accent);
+        }
+        
+        .btn-card:link,
+        .btn-card:visited {
+            outline: none;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            color: var(--color-card-accent);
+            border: 2px solid var(--color-card-accent);
+            border-radius: 100px;
+            text-align: center;
+            align-self: center;
+            margin-top: 1rem;
+            transform: translateZ(2rem);
+            transition: 0.3s ease;
+        }
+        
+        /* * 7. FOOTER (With Contact Form) - FIXES APPLIED HERE
+         */
+        .site-footer {
+            /* Fix 1: Ensure it's opaque and on top of the background layer */
+            background-color: transparent;
+            position: relative; 
+            z-index: 10; 
+            /* End Fix 1 */
+            
+            padding: 5rem 10%;
+            border-top: 5px solid var(white);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 4rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-brand {
+            flex-basis: 100%; 
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand h4 {
+            font-size: 1.8rem;
+            color: var(--color-accent-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-contact-form {
+            flex: 1 1 400px; 
+            background-color: rgba(10, 4, 31, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--color-btn-primary);
+        }
+
+        .footer-contact-form h4 {
+            color: var(--color-card-accent);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-light);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid var(--color-accent-blue);
+            background-color: var(--color-dark-purple);
+            color: var(--color-text-light);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--color-btn-primary);
+            box-shadow: 0 0 5px var(--color-btn-primary);
+        }
+
+        .footer-info-links {
+            flex: 1 1 300px; 
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .info-block h4 {
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-block ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-block ul li {
+            margin-bottom: 0.7rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .info-block ul li i {
+            margin-right: 0.5rem;
+            color: var(--color-accent-blue);
+        }
+        
+        .info-block ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        /* * 8. MEDIA QUERIES
+         */
+         @media (max-width: 1200px) {
+             .projects-grid {
+                 grid-template-columns: repeat(2, 1fr);
+             }
+             .hero-title-large {
+                 font-size: 5rem;
+             }
+         }
+         @media (max-width: 768px) {
+             section {
+                 padding: 5rem 5%;
+             }
+             .projects-grid {
+                 grid-template-columns: 1fr;
+             }
+             .hero-title-large {
+                 font-size: 3.5rem;
+             }
+             .skills-container {
+                 grid-template-columns: 1fr;
+             }
+             .footer-info-links {
+                 flex-direction: column;
+                 align-items: flex-start;
+                 text-align: left;
+             }
+             .info-block {
+                 width: 100%;
+             }
+         }
+
+         /* Floating Image on Right Side */
+        .floating-right-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: auto;
+            z-index: 8;
+            pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
+            animation: float-up-down 3s ease-in-out infinite;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% {
+                transform: translateY(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateY(-50%) translateY(-20px);
+            }
+        }
+        /* Floating Image on Left Side */
+        .floating-left-image {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: auto;
+            z-index: 8;
+            pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
+            animation: float-up-down 3s ease-in-out infinite;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% {
+                transform: translateY(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateY(-50%) translateY(-20px);
+            }
+        }
+        .navbar {
+            position: fixed; 
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            padding: 1rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.4s ease;
+            height:100px;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(10, 4, 31, 0.98); 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        /* NEW NAVBAR STYLES */
+        .navbar-brand {
+            font-family: 'Teko', sans-serif; /* Changed font */
+            font-size: 2.5rem; /* Increased size */
+            font-weight: 700;
+            color: var(--color-accent-blue); /* Changed color for focus */
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* New Logo Placeholder Style */
+        .navbar-logo {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            color: var(--color-card-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Use gap for spacing instead of margin-left */
+        }
+
+        .nav-links a {
+            position: relative;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s, transform 0.3s;
+            padding: 5px 0; /* Padding for hover effect */
+        }
+
+        /* New Hover Effect (Underline glow) */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-btn-primary);
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+            box-shadow: 0 0 8px var(--color-btn-primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        /* Resume Button Specific Style */
+        .btn-resume {
+            background-color: var(--color-card-accent);
+            color: var(--color-dark-purple);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-left: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            padding:40px;
+        }
+
+        .btn-resume:hover {
+            background-color: #ffda6a;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 193, 7, 0.8);
+        }
+        .copy {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    text-align: center;
+    z-index: 100;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copy p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.navbar .navbar-brand img{
+    width:150px;
+}
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+   <nav class="navbar" id="main-navbar">
+        <div class="navbar-brand">
+            <img src="C:\Users\BhaviChasvi\Downloads\Gemini_Generated_Image_yfmyi4yfmyi4yfmy__1_-removebg-preview.png" alt="">DRK
+        </div>
+        <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#internships">Internships</a>
+            <a href="#skills-awards">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            
+            <a href="YOUR_RESUME_URL" target="_blank" class="btn-resume">
+                <i class="fas fa-download"></i> RESUME
+            </a>
+        </div>
+    </nav>
+
+   
+
+    <header class="hero-section" id="hero">
+        <div class="parallax-layer moon-layer" data-speed="0.1">
+    <div class="moon">
+        <img id="profilePic" src="C:\Users\BhaviChasvi\Downloads\download__6_-removebg-preview.png" alt="Rohith Kumar Dhamgatla Profile" class="profile-pic-moon">
+    </div>
+</div>
+        
+        <div class="parallax-layer astronaut-layer" data-speed="0.8" data-horizontal-max="80vw">
+            <img src="C:\Users\BhaviChasvi\Downloads\Cute_astronaut_floating_space_with_planet_cartoon_vector_icon_illustration_science_technology_flat___Premium_Vector-removebg-preview.png" alt="Astronaut Navigator" class="astronaut-img"> 
+        </div>
+
+        <img src="C:\Users\BhaviChasvi\Downloads\Adobe Express - file.png" alt="Floating Object" class="floating-right-image">
+        <img src="C:\Users\BhaviChasvi\Downloads\Adobe Express - file (1).png" alt="Floating Object" class="floating-left-image">
+
+        
+        <div class="hero-content">
+            <p class="hero-title-small">Beyond The Naked Eye</p>
+            <h1 class="hero-title-large">ROHITH DHAMGATLA</h1>
+            <p class="hero-subtitle">AI/ML & Full Stack Software Development Engineer</p>
+            <p class="hero-summary">
+                A passionate B.Tech Computer Science student specializing in **AI/LLM** and **Full Stack Development**. I deliver intelligent, scalable, and production-ready applications, leveraging frameworks like React.js, Flask, and deep learning technologies.
+            </p>
+            <div class="hero-ctas">
+                <a href="#projects" class="btn btn-general btn-primary">VIEW PROJECTS</a>
+                <a href="#skills-awards" class="btn btn-general btn-secondary">MY SKILLS</a>
+            </div>
+        </div>
+    </header>
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">FEATURED PROJECTS</h2>
+        <div class="projects-grid">
+            
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url('https://i.pinimg.com/736x/59/32/01/5932011210b338ec7a0dfcc9549bd939.jpg'); 
+             background-color: rgba(60, 10, 100, 0.4);
+             background-size: cover;
+             background-position: center;">
+                            <p class="sub-title">LLM | GROQ</p>
+                            <h1 class="title">AI Report Generator</h1>
+                            <p class="sub-title">Suprathon 2025</p>
+                        </div>
+                        <div class="card-back" style="background-image: url('https://i.pinimg.com/736x/59/32/01/5932011210b338ec7a0dfcc9549bd939.jpg'); 
+             background-color: rgba(60, 10, 100, 0.4);
+             background-size: cover;
+             background-position: center;">
+                            <div class="back-title">Report Generator</div>
+                            <div class="movie-description">
+                                <span>Description: </span>Full-stack app using **Groq API** with LLAMA models to analyze conversations and generate detailed reports.
+                            </div>
+                            <div class="genre">
+                                <span>Tech Stack: </span>React/Vite, Node.js, PostgreSQL, Groq API.
+                            </div>
+                            <a href="https://github.com/9059Rohith/Report_Generator" class="btn-card" target="_blank">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/bd/5a/69/bd5a69e5ac96d4ee9116862099fa2329.jpg); background-color: rgba(255, 69, 0, 0.4);">
+                            <p class="sub-title">ML | REST API</p>
+                            <h1 class="title">Disaster System</h1>
+                            <p class="sub-title">Quibitron 2024</p>
+                        </div>
+                        <div class="card-back" style="background-image: url(https://i.pinimg.com/736x/bd/5a/69/bd5a69e5ac96d4ee9116862099fa2329.jpg);">
+                            <div class="back-title">Disaster System</div>
+                            <div class="movie-description">
+                                <span>Description: </span>ML-powered emergency response system integrated with 1000+ verified helplines.
+                            </div>
+                            <div class="genre">
+                                <span>Tech Stack: </span>Machine Learning, REST APIs.
+                            </div>
+                            <a href="https://disaster-mangement.onrender.com/" class="btn-card" target="_blank">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/8d/08/49/8d08492d237383fbc6a46dd1f4d405ad.jpg); background-color: rgba(255, 215, 0, 0.3);">
+                            <p class="sub-title">BERT | TENSORFLOW</p>
+                            <h1 class="title">Fake News Detector</h1>
+                            <p class="sub-title">FIN HACK101 Winner</p>
+                        </div>
+                        <div class="card-back" style="background-image: url(https://i.pinimg.com/736x/8d/08/49/8d08492d237383fbc6a46dd1f4d405ad.jpg);">
+                            <div class="back-title">Fake News Detector</div>
+                            <div class="movie-description">
+                                <span>Description: </span>AI-powered system using **BERT** with **94% accuracy**. Secured 3rd Place in FIN HACK101.
+                            </div>
+                            <div class="genre">
+                                <span>Frameworks: </span>BERT, TensorFlow.
+                            </div>
+                            <a href="#" class="btn-card" target="_blank">View Award</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/e0/40/11/e0401198d80013f7d63691484cd1b4c0.jpg); background-color: rgba(0, 150, 200, 0.4);">
+                            <p class="sub-title">AI | INTELLIGENCE</p>
+                            <h1 class="title">SkillSync</h1>
+                            <p class="sub-title">Intelligence Platform</p>
+                        </div>
+                        <div class="card-back" style="background-image: url(https://i.pinimg.com/736x/e0/40/11/e0401198d80013f7d63691484cd1b4c0.jpg);">
+                            <div class="back-title">SkillSync</div>
+                            <div class="movie-description">
+                                <span>Description: </span>Enterprise-grade platform for real-world job market intelligence.
+                            </div>
+                            <div class="genre">
+                                <span>Tech Stack: </span>AI, Web Development.
+                            </div>
+                            <a href="https://astonishing-smakager-155165.netlify.app/" class="btn-card" target="_blank">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url(https://i.pinimg.com/1200x/4d/1d/e4/4d1de433760105dcdc1d8b009c55f780.jpg); background-color: rgba(180, 50, 150, 0.4);">
+                            <p class="sub-title">CULTURE | UX</p>
+                            <h1 class="title">TypeSymphony</h1>
+                            <p class="sub-title">Typing Practice</p>
+                        </div>
+                        <div class="card-back" style="background-image: url(https://i.pinimg.com/1200x/4d/1d/e4/4d1de433760105dcdc1d8b009c55f780.jpg);">
+                            <div class="back-title">TypeSymphony</div>
+                            <div class="movie-description">
+                                <span>Description: </span>A culturally immersive typing journey inspired by Indian folklore.
+                            </div>
+                            <div class="genre">
+                                <span>Tech Stack: </span>HTML, CSS, JavaScript.
+                            </div>
+                            <a href="#" class="btn-card" target="_blank">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/35/c6/74/35c674d744672d42bd3d67eacb6f6f9b.jpg); background-color: rgba(200, 100, 50, 0.4);">
+                            <p class="sub-title">FINANCE</p>
+                            <h1 class="title">IPO Web App</h1>
+                            <p class="sub-title">Initial Version</p>
+                        </div>
+                        <div class="card-back" style="background-image: url(https://i.pinimg.com/736x/35/c6/74/35c674d744672d42bd3d67eacb6f6f9b.jpg);">
+                            <div class="back-title">IPO Web App</div>
+                            <div class="movie-description">
+                                <span>Description: </span>Initial platform to explore and analyze IPO data, subscriptions, and company details.
+                            </div>
+                            <div class="genre">
+                                <span>Tech Stack: </span>React, Flask, PostgreSQL.
+                            </div>
+                            <a href="https://github.com/9059Rohith/IPO_WEB_APP" class="btn-card" target="_blank">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="intern-section" id="internships">
+        <h2 class="section-title">PROFESSIONAL JOURNEY</h2>
+        <div class="intern-grid">
+            
+            <div class="intern-card">
+                <h3>Software Development Engineer Intern</h3>
+                <p class="company">BLUESTOCK FINTECH</p>
+                <p>Architected and deployed a Real-time IPO Web Application handling 500+ financial records. Tech Stack: React.js, Flask, PostgreSQL, NSE/BSE APIS.</p>
+            </div>
+
+            <div class="intern-card">
+                <h3>Full Stack Developer Intern / AI Lead</h3>
+                <p class="company">RYL NEUROACADEMY</p>
+                <p>Leading developer of **Saathi.ai**, an AI-powered platform designed to help students with academic support, utilizing large language models.</p>
+            </div>
+
+            <div class="intern-card">
+                <h3>Working Project - Health-Tech Startup</h3>
+                <p class="company">RYL NEUROACADEMY</p>
+                <p>Exploring and developing a health-tech startup idea aimed at creating a real-time health and wellness tracking platform.</p>
+            </div>
+        </div>
+        
+    </section>
+    
+    <section class="skills-awards-section" id="skills-awards">
+        <h2 class="section-title">SKILLS & ACHIEVEMENTS</h2>
+        
+        <div class="skills-container">
+            <h2 class="section-title" style="margin-bottom: 1.5rem;">CORE SKILLS</h2>
+            <ul class="skill-list">
+                <li class="skill-card">
+                    <h3><i class="fas fa-terminal"></i> Programming Languages</h3>
+                    <div class="skill-content">C, C++, **Python**, Java, JavaScript, TypeScript, Haskell, SQL (MySQL)</div>
+                </li>
+                <li class="skill-card">
+                    <h3><i class="fas fa-laptop-code"></i> Web & Full Stack</h3>
+                    <div class="skill-content">**React.js**, Vite.js, Node.js, Express, **Flask**, FastAPI. Styling: Tailwind CSS, Bootstrap, ShadCN, Figma.</div>
+                </li>
+                <li class="skill-card">
+                    <h3><i class="fas fa-brain"></i> AI, ML & Databases</h3>
+                    <div class="skill-content">TensorFlow, PyTorch, OpenCV, Scikit-learn, **Transformers**, **RAG**, DeepSeek. Databases: MySQL, PostgreSQL, **MongoDB**.</div>
+                </li>
+                <li class="skill-card">
+                    <h3><i class="fas fa-microchip"></i> Systems & Tools</h3>
+                    <div class="skill-content">Embedded Systems: Raspberry Pi, ESP32, Arduino. Operating Systems: **Linux (Ubuntu)**, Windows. Version Control: Git.</div>
+                </li>
+            </ul>
+
+            <h2 class="section-title" style="margin-top: 5rem; margin-bottom: 1.5rem;">AWARDS & RECOGNITION</h2>
+            <ul class="award-list">
+                <li class="award-card-new">
+                    <h4><i class="fas fa-trophy"></i> 3rd Place Winner - FIN HACK101</h4>
+                    <div class="award-content">Developed an AI-powered Fake News Detection System using BERT with 94% accuracy.</div>
+                </li>
+                <li class="award-card-new">
+                    <h4><i class="fas fa-code"></i> Finalist - CodeVita, IIT Madras</h4>
+                    <div class="award-content">Selected for the final round among nationwide participants in India's premier coding contests.</div>
+                </li>
+                <li class="award-card-new">
+                    <h4><i class="fas fa-medal"></i> State-level Swimmer</h4>
+                    <div class="award-content">Participated in the APCM Cup 2020 representing Andhra Pradesh.</div>
+                </li>
+                <li class="award-card-new">
+                    <h4><i class="fas fa-star"></i> Top 10% Performer Major Hackathons</h4>
+                    <div class="award-content">Ranked in the top 10% in 3 national-level hackathons hosted by tier-1 tech companies.</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    
+
+    <footer class="site-footer" id="contact">
+        <div class="footer-brand">
+            <h4>ROHITH KUMAR DHAMGATLA</h4>
+            <p>Full Stack & AI/ML Engineer - Let's build something intelligent.</p>
+        </div>
+        
+        <div class="footer-content">
+            
+            <div class="footer-contact-form">
+                <h4><i class="fas fa-handshake"></i> Send Me a Message</h4>
+                <form action="YOUR_FORM_ENDPOINT" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-general btn-primary">Send Message</button>
+                </form>
+            </div>
+
+            <div class="footer-info-links">
+                <div class="info-block">
+                    <h4><i class="fas fa-address-card"></i> Quick Contact</h4>
+                    <ul>
+                         <li><i class="fas fa-map-marker-alt"></i> Ananthapur, AP 515001</li>
+                         <li><i class="fas fa-phone"></i> +91 9059817018</li>
+                         <li><i class="fas fa-envelope"></i> rajuchaswik@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <div class="info-block">
+                    <h4><i class="fas fa-link"></i> Useful Links</h4>
+                    <ul>
+                         <li><a href="https://www.linkedin.com/inLinkedIn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                         <li><a href="https://github.com/9059Rohith" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+                         <li><a href="#projects"><i class="fas fa-rocket"></i> Projects</a></li>
+                         <li><a href="#internships"><i class="fas fa-briefcase"></i> Internships</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copy">
+
+        <p>copryrights@Rohith 2025</p>
+    </div>
+
+    
+    
+    <script>
+        // --- 1. GLOBALS AND CONFIGURATION ---
+        const navbar = document.getElementById('main-navbar');
+        const heroSection = document.getElementById('hero');
+        const astronautElement = document.querySelector('.astronaut-layer');
+        const astronautImg = document.querySelector('.astronaut-img');
+        // NEW: Profile Picture Element
+const profilePic = document.getElementById('profilePic');
+        
+        // New State Variables for Smoothing
+        // Target is what the position SHOULD be (based on scroll)
+        // Current is what the position ACTUALLY is (smoothly approaching target)
+        let targetX = 100; // Initial xPos (from original handleScroll)
+        let targetY = 100; // Initial yViewportPos (from original handleScroll)
+        let currentX = 100;
+        let currentY = 100;
+        const smoothingFactor = 0.08; // Lower = smoother/slower, Higher = faster/less smooth
+
+        // Configuration for astronaut's flight path
+        const starParallaxSpeed = 0.02;
+        const floatAmplitude = 20; 
+        const floatSpeed = 300; 
+        
+        let particles = [];
+        let particlesContainer;
+
+        // Lerp function (Linear Interpolation)
+        const lerp = (start, end, t) => {
+            return start * (1 - t) + end * t;
+        };
+
+        // --- 2. SETUP FUNCTIONS ---
+
+        // This function is now mostly unnecessary due to fixed particles-js height, but we keep it to populate the `particles` list.
+        function updateParticlesContainerHeight() {
+             particlesContainer = document.getElementById('particles-js');
+             if (particlesContainer) {
+                 particles = document.querySelectorAll('.particle');
+             }
+        }
+        
+        // --- 3. SCROLL LOGIC (Only calculates TARGET positions) ---
+
+        function updateTargetPositions() {
+            const scrollY = window.scrollY;
+            const scrollHeight = document.body.scrollHeight - window.innerHeight;
+            
+            // Calculate the distance scrolled across the whole document (0 to 1)
+            const scrollProgress = scrollHeight > 0 ? Math.min(1, scrollY / scrollHeight) : 0; 
+            
+            // Navbar opacity logic
+            navbar.classList.toggle('scrolled', scrollY > 50);
+
+            // --- A. MOON & HERO CONTENT PARALLAX ---
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            const heroContent = document.querySelector('.hero-content'); 
+            const heroHeight = heroSection.offsetHeight;
+            
+            parallaxLayers.forEach(layer => {
+                if (layer.classList.contains('moon-layer')) {
+                    const speed = parseFloat(layer.getAttribute('data-speed'));
+                    const yPos = scrollY * speed;
+                    layer.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+
+            heroContent.style.transform = `translateY(${scrollY * -0.3}px) translateZ(0)`; 
+            if (profilePic) {
+    const triggerPoint = heroHeight * 0.1; // Start fade-in at 10% scroll
+    const fadeEnd = heroHeight * 0.5; // Finish fade-in at 50% scroll
+
+    if (scrollY > triggerPoint) {
+        profilePic.classList.add('visible');
+    } else {
+        profilePic.classList.remove('visible');
+    }
+}
+            
+            // --- B. ASTRONAUT TARGET POSITION CALCULATION ---
+            if (astronautElement && scrollHeight > 0) {
+                
+                // Horizontal Movement
+                const startX = 100;
+                const endX = window.innerWidth + 50; 
+                targetX = startX + (endX - startX) * scrollProgress;
+                
+                // Vertical Position
+                const startY = 100; 
+                const endY = 300; 
+                targetY = startY + (endY - startY) * scrollProgress;
+            }
+
+            // --- C. STAR PARALLAX LOGIC (No Smoothing, direct movement is fine) ---
+            const starsYPos = scrollY * starParallaxSpeed;
+            particles.forEach(particle => {
+                const initialY = parseFloat(particle.getAttribute('data-initial-y'));
+                // Parallax formula (Fixed background but simulating distance)
+                const visualY = initialY - scrollY * (1 - starParallaxSpeed);
+                particle.style.transform = `translateY(${visualY}px) translateZ(0)`;
+            });
+            
+            // --- D. SCROLL BLUR EFFECT LOGIC ---
+            const scrollStart = heroHeight * 0.5; 
+
+            if (scrollY > scrollStart) {
+                const fadeDistance = heroHeight - scrollStart;
+                const scrollT = Math.min(1, (scrollY - scrollStart) / (fadeDistance));
+                
+                heroSection.classList.toggle('scroll-blurry', scrollT > 0);
+            } else {
+                 heroSection.classList.remove('scroll-blurry');
+            }
+        }
+        
+        // --- 4. CONTINUOUS ANIMATION LOOP (Applies smooth movement) ---
+        function animate() {
+            
+            // 1. Update Current Position towards Target Position (The Smoothing using Lerp)
+            currentX = lerp(currentX, targetX, smoothingFactor);
+            currentY = lerp(currentY, targetY, smoothingFactor);
+            
+            // 2. Calculate time-based vertical float
+            const vFloat = Math.sin(Date.now() / floatSpeed) * floatAmplitude;
+            
+            // 3. Calculate rotation
+            const scrollProgress = (document.body.scrollHeight - window.innerHeight) > 0 
+                ? Math.min(1, window.scrollY / (document.body.scrollHeight - window.innerHeight)) : 0; 
+            const rotation = scrollProgress * 30;
+
+            // 4. Apply the final smoothed transformation
+            astronautImg.style.transform = 
+                `translateY(${currentY + vFloat}px) translateX(${currentX}px) rotateZ(${rotation}deg) translateZ(0)`;
+
+            // Request the next frame for continuous motion
+            requestAnimationFrame(animate); 
+        }
+        
+        // --- 5. PARTICLE GENERATION (Modified to add initial Y position) ---
+
+        function createParticles(containerId, count) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const containerWidth = document.body.scrollWidth; 
+            // We need to cover the total height, not just viewport height
+            const totalContentHeight = document.body.scrollHeight * 1.5; 
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const x = Math.random() * containerWidth;
+                const y = Math.random() * totalContentHeight;
+                
+                particle.style.left = `${x}px`;
+                // Store initial Y position for JS parallax calculation
+                particle.setAttribute('data-initial-y', y);
+                particle.style.top = `0px`; // Set base top to 0 as it's offset by transform
+
+                const size = Math.random() * 2 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                const duration = Math.random() * 5 + 3;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particle.style.boxShadow = `0 0 5px rgba(163, 218, 255, 0.5)`;
+
+                container.appendChild(particle);
+            }
+            updateParticlesContainerHeight(); 
+        }
+
+        // --- 6. NEW SPACE ANIMATIONS CREATION (Unchanged from original) ---
+
+        function createSpaceAnimations() {
+            const container = document.getElementById('particles-js');
+            if (!container) return;
+
+            createAsteroids(container, 8);
+            createShootingStars(container);
+            createSatellites(container, 5);
+            createNebulae(container, 4);
+            createPlanetRings(container, 3);
+        }
+
+        function createAsteroids(container, count) {
+            for (let i = 0; i < count; i++) {
+                const asteroid = document.createElement('div');
+                asteroid.className = 'asteroid';
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (document.body.scrollHeight * 0.7);
+                asteroid.style.left = `${x}px`;
+                asteroid.style.top = `${y}px`;
+                const size = Math.random() * 40 + 30;
+                asteroid.style.width = `${size}px`;
+                asteroid.style.height = `${size}px`;
+                asteroid.innerHTML = `<div style="width: 100%; height: 100%; background: radial-gradient(circle at 30% 30%, #888, #333); border-radius: 50%; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.5);"></div>`;
+                const rotationSpeed = Math.random() * 10 + 5;
+                asteroid.querySelector('div').style.animationDuration = `${rotationSpeed}s`;
+                const driftX = (Math.random() - 0.5) * 200;
+                const driftY = (Math.random() - 0.5) * 200;
+                asteroid.style.setProperty('--drift-x', `${driftX}px`);
+                asteroid.style.setProperty('--drift-y', `${driftY}px`);
+                const driftDuration = Math.random() * 20 + 15;
+                asteroid.style.animation = `drift-asteroid ${driftDuration}s ease-in-out infinite alternate`;
+                container.appendChild(asteroid);
+            }
+        }
+
+        function createShootingStars(container) {
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                const x = Math.random() * window.innerWidth * 0.5 + window.innerWidth * 0.5;
+                const y = Math.random() * window.innerHeight * 0.3;
+                shootingStar.style.left = `${x}px`;
+                shootingStar.style.top = `${y}px`;
+                const duration = Math.random() * 1 + 0.5;
+                shootingStar.style.animation = `shooting ${duration}s linear`;
+                container.appendChild(shootingStar);
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, duration * 1000);
+            }, 3000); 
+        }
+
+        function createSatellites(container, count) {
+            const satelliteIcons = ['🛰️', '📡', '🚀'];
+            for (let i = 0; i < count; i++) {
+                const satellite = document.createElement('div');
+                satellite.className = 'satellite';
+                satellite.textContent = satelliteIcons[Math.floor(Math.random() * satelliteIcons.length)];
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (document.body.scrollHeight * 0.6);
+                satellite.style.left = `${x}px`;
+                satellite.style.top = `${y}px`;
+                const duration = Math.random() * 3 + 3;
+                satellite.style.animationDuration = `${duration}s`;
+                container.appendChild(satellite);
+            }
+        }
+
+        function createNebulae(container, count) {
+            const colors = [
+                'radial-gradient(circle, rgba(142,89,255,0.4), transparent)',
+                'radial-gradient(circle, rgba(255,105,180,0.4), transparent)',
+                'radial-gradient(circle, rgba(0,255,255,0.4), transparent)',
+                'radial-gradient(circle, rgba(163,218,255,0.4), transparent)'
+            ];
+            
+            for (let i = 0; i < count; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'nebula';
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (document.body.scrollHeight * 0.5);
+                nebula.style.left = `${x}px`;
+                nebula.style.top = `${y}px`;
+                const size = Math.random() * 300 + 200;
+                nebula.style.width = `${size}px`;
+                nebula.style.height = `${size}px`;
+                nebula.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const duration = Math.random() * 5 + 5;
+                nebula.style.animationDuration = `${duration}s`;
+                container.appendChild(nebula);
+            }
+        }
+
+        function createPlanetRings(container, count) {
+            for (let i = 0; i < count; i++) {
+                const ring = document.createElement('div');
+                ring.className = 'planet-ring';
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (document.body.scrollHeight * 0.4);
+                ring.style.left = `${x}px`;
+                ring.style.top = `${y}px`;
+                const size = Math.random() * 100 + 80;
+                ring.style.width = `${size}px`;
+                ring.style.height = `${size}px`;
+                const duration = Math.random() * 10 + 10;
+                ring.style.animationDuration = `${duration}s`;
+                container.appendChild(ring);
+            }
+        }
+
+        // --- 7. INITIALIZATION AND EVENT LISTENERS ---
+
+        // Listener to update TARGET position immediately on scroll
+        window.addEventListener('scroll', updateTargetPositions); 
+        
+        window.addEventListener('resize', () => {
+            updateParticlesContainerHeight();
+            updateTargetPositions(); // Re-calculate target positions on resize
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                createParticles('particles-js', 400);
+                createSpaceAnimations();
+                updateTargetPositions(); // Initial calculation of target position
+                requestAnimationFrame(animate); // Start the continuous animation loop
+            }, 500); 
+        });
+    </script>
+</body>
+</html>
