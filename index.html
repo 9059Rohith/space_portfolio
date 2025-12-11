@@ -40,6 +40,7 @@
             color: var(--color-text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
         }
 
         a {
@@ -64,6 +65,7 @@
             margin-bottom: 3rem;
             letter-spacing: 0.15em;
             color: var(--color-accent-blue);
+            text-transform: uppercase;
         }
 
         .btn-general {
@@ -76,6 +78,7 @@
             transition: background-color 0.3s, box-shadow 0.3s;
             border: 2px solid transparent;
             display: inline-block;
+            margin: 0.5rem;
         }
 
         .btn-primary {
@@ -99,7 +102,9 @@
              color: var(--color-dark-purple);
         }
         
-        /* * 2. NAV & PARTICLES (Background Layer)
+        /* * ======================================
+         * 2. NAV & PARTICLES (Background Layer)
+         * ======================================
          */
         #particles-js {
             position: absolute; 
@@ -108,7 +113,6 @@
             width: 100%;
             height: 100%; 
             z-index: 0;
-            /* Background image and overlay for all sections */
              background: linear-gradient(
                  180deg, 
                  var(--color-mid-purple) 0%, 
@@ -124,7 +128,7 @@
             pointer-events: none;
             animation: twinkle linear infinite;
             transform: translateZ(0); 
-            transition: none; /* Removed transition for smooth parallax in JS */
+            transition: none; 
         }
         
         @keyframes twinkle {
@@ -132,7 +136,7 @@
             50% { opacity: 1; }
         }
 
-        /* NEW: Asteroid Animation */
+        /* Asteroid Animation */
         .asteroid {
             position: absolute;
             pointer-events: none;
@@ -161,7 +165,7 @@
             }
         }
 
-        /* NEW: Shooting Stars */
+        /* Shooting Stars */
         .shooting-star {
             position: absolute;
             width: 2px;
@@ -195,7 +199,7 @@
             }
         }
 
-        /* NEW: Floating Satellites */
+        /* Floating Satellites */
         .satellite {
             position: absolute;
             pointer-events: none;
@@ -215,7 +219,7 @@
             }
         }
 
-        /* NEW: Nebula Clouds */
+        /* Nebula Clouds */
         .nebula {
             position: absolute;
             border-radius: 50%;
@@ -237,7 +241,7 @@
             }
         }
 
-        /* NEW: Planet Rings */
+        /* Planet Rings */
         .planet-ring {
             position: absolute;
             pointer-events: none;
@@ -252,17 +256,22 @@
             to { transform: rotateX(60deg) rotateZ(360deg); }
         }
 
+        /* * ======================================
+         * 3. RESPONSIVE NAVBAR
+         * ======================================
+         */
         .navbar {
             position: fixed; 
             top: 0;
             width: 100%;
             background-color: transparent;
-            padding: 1rem 10%;
+            padding: 0 10%; /* Vert padding handled by height/flex */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            z-index: 1000;
             transition: background-color 0.4s ease;
+            height: 100px;
         }
         
         .navbar.scrolled {
@@ -271,42 +280,112 @@
         }
 
         .navbar-brand {
-            font-size: 1.5rem;
+            font-family: 'Teko', sans-serif; 
+            font-size: 2.5rem; 
             font-weight: 700;
-            color: var(--color-text-light);
-            letter-spacing: 0.05em;
+            color: var(--color-accent-blue); 
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            z-index: 1001;
+        }
+        
+        .navbar-brand img {
+            width: 150px;
+            /* Adjust image size for logo if needed */
+            z-index: 6000;
+        }
+
+        /* Container for Desktop Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
         }
 
         .nav-links a {
-            margin-left: 25px;
+            position: relative;
             color: var(--color-text-secondary);
             text-transform: uppercase;
             font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s, transform 0.3s;
+            padding: 5px 0; 
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-btn-primary);
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+            box-shadow: 0 0 8px var(--color-btn-primary);
         }
 
         .nav-links a:hover {
-            color: var(--color-accent-blue);
+            color: var(--color-text-light);
         }
 
-        /* * 3. HERO SECTION (WITH SCROLL BLUR EFFECT)
-         */
-       /* Updated CSS for .hero-section to move it down */
-.hero-section {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    background: transparent; 
-    background-attachment: fixed; 
-    /* THIS IS THE MODIFICATION: Pushes the entire section down 200px */
-    margin-top: 100px; /* Increased from 40px to 200px */
-}
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
         
-        /* Blur Overlay */
+        .btn-resume {
+            background-color: var(--color-card-accent);
+            color: var(--color-dark-purple) !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-left: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Remove underline effect from button */
+        .btn-resume::after { display: none; }
+
+        .btn-resume:hover {
+            background-color: #ffda6a;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 193, 7, 0.8);
+            color: var(--color-dark-purple) !important;
+        }
+
+        /* Hamburger Toggle (Hidden by default) */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--color-text-light);
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        /* * ======================================
+         * 4. HERO SECTION
+         * ======================================
+         */
+        .hero-section {
+            position: relative;
+            min-height: 100vh; /* Changed from height to min-height for mobile */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: transparent; 
+            margin-top: 100px;
+            padding: 0 1rem;
+        }
+        
         .hero-section::after {
             content: '';
             position: absolute;
@@ -326,7 +405,6 @@
             background: linear-gradient(to top, var(--color-dark-purple) 0%, var(--color-dark-purple) 10%, var(--color-mid-purple) 50%, transparent 100%);
         }
 
-
         .parallax-layer {
             position: absolute;
             top: 0;
@@ -338,44 +416,44 @@
         }
         
         .moon-layer { z-index: 5; }
-     .moon {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 350px; 
-    height: 350px;
-    border-radius: 50%;
-    background-color: #f0f8ff;
-    box-shadow: 0 0 100px rgba(255, 255, 255, 0.6), 0 0 200px rgba(163, 218, 255, 0.3);
-    /* NEW: Added these 4 lines */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-/* NEW: Profile Picture Style */
-.profile-pic-moon {
-    width: 90%; /* Smaller than moon to show moon's glow/color */
-    height: 90%;
-    border-radius: 50%;
-    object-fit: cover;
-    opacity: 0; /* Initially hidden */
-    transform: scale(0.5); /* Start small */
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.profile-pic-moon.visible {
-    opacity: 1; /* Fully visible */
-    transform: scale(1); /* Full size */
-}
         
-        /* New Astronaut Style - FIX 1: position: fixed */
+        .moon {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 350px; 
+            height: 350px;
+            border-radius: 50%;
+            background-color: #f0f8ff;
+            box-shadow: 0 0 100px rgba(255, 255, 255, 0.6), 0 0 200px rgba(163, 218, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .profile-pic-moon {
+            width: 90%; 
+            height: 90%;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0; 
+            transform: scale(0.5); 
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-pic-moon.visible {
+            opacity: 1; 
+            transform: scale(1); 
+        }
+        
         .astronaut-layer {
             z-index: 10; 
             pointer-events: none;
-            position: fixed; /* Keep it fixed on the viewport */
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
@@ -384,19 +462,20 @@
 
         .astronaut-img {
             position: absolute;
-            /* Initial position (top left of the page) */
             top: 100px; 
-            left: 0; /* Set initial left to 0 for calculation to work */
+            left: 0; 
             width: 120px;
             height: auto;
             transform: translateZ(0); 
             filter: drop-shadow(0 0 10px rgba(163, 218, 255, 0.5));
-            /* REMOVED transition: transform 0.1s linear; for JS smoothing */
+            transition: width 0.3s ease;
         }
         
         .hero-content {
             position: relative;
             z-index: 20; 
+            width: 100%;
+            padding: 0 10px;
         }
 
         .hero-title-small {
@@ -432,36 +511,66 @@
             line-height: 1.8;
             color: var(--color-text-secondary);
             animation: fadeInUp 1s ease-out 0.6s both;
+            padding: 0 10px;
         }
 
         .hero-ctas {
             animation: fadeInUp 1s ease-out 0.8s both;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Floating Images */
+        .floating-right-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: auto;
+            z-index: 8;
+            pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
+            animation: float-up-down 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+        
+        .floating-left-image {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: auto;
+            z-index: 8;
+            pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
+            animation: float-up-down 3s ease-in-out infinite;
+             transition: all 0.5s ease;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(-50%) translateY(0px); }
+            50% { transform: translateY(-50%) translateY(-20px); }
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* * 4. INTERN SECTION
+        /* * ======================================
+         * 5. SECTIONS: Intern, Skills, Projects
+         * ======================================
          */
+        
+        /* INTERNSHIP */
         .intern-section {
             background-color: transparent;
             padding-bottom: 8rem;
@@ -494,6 +603,7 @@
         .intern-card h3 {
             color: var(--color-card-accent);
             margin-bottom: 0.5rem;
+            font-size: 1.4rem;
         }
         .intern-card .company {
             color: var(--color-accent-blue);
@@ -501,34 +611,11 @@
             margin-bottom: 1rem;
         }
 
-        .divider-wave-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            overflow: hidden;
-            z-index: 5;
-        }
-
-        .wave-svg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            fill: var(--color-mid-purple); 
-            transform-origin: bottom;
-            filter: drop-shadow(0 -5px 10px rgba(163, 218, 255, 0.3));
-        }
-        
-        /* * 5. SKILLS & AWARDS SECTION (NEW GLOWING CARDS)
-         */
+        /* SKILLS */
         .skills-awards-section {
              background-color: transparent;
             padding-bottom: 8rem;
             position: relative;
-            padding: 5rem 10%;
         }
 
         .skills-container {
@@ -560,27 +647,10 @@
             box-shadow: 0 10px 40px rgba(142, 89, 255, 0.4);
         }
 
-        .skill-card::before, .award-card-new::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(163, 218, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
-        }
-
-        .skill-card:hover::before, .award-card-new:hover::before {
-            opacity: 1;
-        }
-
         .skill-card h3, .award-card-new h4 {
             color: var(--color-accent-blue);
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             border-bottom: 2px solid var(--color-btn-primary);
             padding-bottom: 0.5rem;
             display: flex;
@@ -601,8 +671,7 @@
             background: rgba(142, 89, 255, 0.15); 
         }
         
-        /* * 6. PROJECT FLIP CARDS (2x3 Grid)
-         */
+        /* PROJECTS */
         .projects-section {
             padding-top: 5rem;
             padding-bottom: 5rem;
@@ -612,7 +681,7 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
-            grid-auto-rows: 400px; 
+            grid-auto-rows: minmax(400px, auto); /* Flexible height */
             gap: 2.5rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -622,7 +691,8 @@
         
         .card-wrapper {
             width: 100%;
-            height: 100%; 
+            height: 400px; /* Base height */
+            position: relative;
         }
 
         .card {
@@ -634,13 +704,18 @@
             position: relative;
             width: 100%;
             height: 100%;
-            padding: 5rem 2rem; 
             transform-style: preserve-3d;
             transition: transform 1s ease-in-out; 
         }
         
+        /* Hover effect for desktop */
         .card-wrapper:hover .card-content {
             transform: rotateY(180deg);
+        }
+        
+        /* Active class for mobile tap */
+        .card-wrapper.active .card-content {
+             transform: rotateY(180deg);
         }
 
         .card-front,
@@ -683,6 +758,7 @@
             text-transform: uppercase;
             line-height: 120%;
             transform: translateZ(4.4rem);
+            text-align: center;
         }
         .sub-title {
             font-size: 0.75rem;
@@ -690,14 +766,15 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             transform: translateZ(3rem);
+            text-align: center;
         }
 
         .card-back {
-            background-color: rgba(0, 0, 0, 0.7); 
+            background-color: rgba(0, 0, 0, 0.85); 
             transform: rotateY(180deg);
             gap: 0.5rem;
-            justify-content: flex-start; 
-            padding-top: 3rem;
+            justify-content: center; 
+            padding-top: 1rem;
         }
         .back-title {
             font-family: "Teko", sans-serif;
@@ -708,12 +785,14 @@
             align-self: center;
             transform: translateZ(2rem);
             margin-bottom: 0.5rem;
+            text-align: center;
         }
         .movie-description, .genre, .release-date {
             transform: translateZ(1rem);
             font-size: 0.85rem;
             margin-bottom: 0.5rem;
-            padding: 0 1rem;
+            padding: 0 0.5rem;
+            text-align: center;
         }
         .card-back span {
             font-weight: 600;
@@ -734,19 +813,19 @@
             margin-top: 1rem;
             transform: translateZ(2rem);
             transition: 0.3s ease;
+            display: inline-block;
         }
         
-        /* * 7. FOOTER (With Contact Form) - FIXES APPLIED HERE
+        /* * ======================================
+         * 6. FOOTER
+         * ======================================
          */
         .site-footer {
-            /* Fix 1: Ensure it's opaque and on top of the background layer */
             background-color: transparent;
             position: relative; 
             z-index: 10; 
-            /* End Fix 1 */
-            
             padding: 5rem 10%;
-            border-top: 5px solid var(white);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -809,6 +888,7 @@
             color: var(--color-text-light);
             outline: none;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
         .form-group input:focus, .form-group textarea:focus {
@@ -848,8 +928,32 @@
             text-decoration: underline;
         }
         
-        /* * 8. MEDIA QUERIES
+        .copy {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 100;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copy p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* * ======================================
+         * 7. MEDIA QUERIES (FULL RESPONSIVENESS)
+         * ======================================
          */
+         
+         /* Laptop / Small Desktop */
          @media (max-width: 1200px) {
              .projects-grid {
                  grid-template-columns: repeat(2, 1fr);
@@ -858,190 +962,158 @@
                  font-size: 5rem;
              }
          }
-         @media (max-width: 768px) {
-             section {
-                 padding: 5rem 5%;
+
+         /* Tablet */
+         @media (max-width: 992px) {
+             .navbar {
+                 padding: 0 5%;
              }
-             .projects-grid {
-                 grid-template-columns: 1fr;
+             section {
+                 padding: 4rem 5%;
+             }
+             .floating-right-image, .floating-left-image {
+                 width: 150px;
+                 opacity: 0.7; /* Fade them out slightly */
              }
              .hero-title-large {
-                 font-size: 3.5rem;
+                 font-size: 4rem;
              }
-             .skills-container {
-                 grid-template-columns: 1fr;
+             .moon {
+                 width: 280px;
+                 height: 280px;
              }
              .footer-info-links {
                  flex-direction: column;
-                 align-items: flex-start;
-                 text-align: left;
              }
-             .info-block {
+         }
+
+         /* Mobile */
+         @media (max-width: 768px) {
+             .navbar {
+                 height: 80px;
+                 background-color: rgba(10, 4, 31, 0.95); /* Always solid on mobile */
+             }
+             
+             .menu-toggle {
+                 display: block; /* Show hamburger */
+             }
+
+             /* Sliding Drawer Menu */
+             .nav-links {
+                 position: fixed;
+                 top: 80px;
+                 right: -100%;
+                 width: 100%;
+                 height: calc(100vh - 80px);
+                 background-color: rgba(10, 4, 31, 0.98);
+                 flex-direction: column;
+                 justify-content: flex-start;
+                 padding-top: 2rem;
+                 transition: right 0.4s ease-in-out;
+                 border-top: 1px solid rgba(255,255,255,0.1);
+             }
+             
+             .nav-links.active {
+                 right: 0;
+             }
+
+             .nav-links a {
+                 font-size: 1.2rem;
+                 margin: 15px 0;
+             }
+             
+             .btn-resume {
+                 margin-left: 0;
+                 margin-top: 20px;
+             }
+
+             /* Hero Mobile adjustments */
+             .hero-section {
+                 margin-top: 80px;
+             }
+             .hero-title-large {
+                 font-size: 3rem;
+             }
+             .hero-subtitle {
+                 font-size: 1.2rem;
+             }
+             .moon {
+                 top: 10%;
+                 width: 200px;
+                 height: 200px;
+             }
+             
+             /* Hide/Fade floating planets on mobile to save space */
+             .floating-right-image, .floating-left-image {
+                 width: 80px;
+                 opacity: 0.3; 
+             }
+             .floating-right-image { right: -20px; }
+             .floating-left-image { left: -20px; }
+
+             /* Cards Mobile */
+             .projects-grid {
+                 grid-template-columns: 1fr;
+                 padding: 0 1rem;
+             }
+             
+             /* Intern Cards */
+             .intern-grid {
+                 grid-template-columns: 1fr;
+             }
+
+             /* Footer Stack */
+             .site-footer {
+                 flex-direction: column;
+                 padding: 3rem 5%;
+                 gap: 2rem;
+             }
+             .footer-content {
+                 flex-direction: column;
+             }
+             .footer-contact-form, .footer-info-links {
+                 flex: 1 1 100%;
                  width: 100%;
              }
          }
 
-         /* Floating Image on Right Side */
-        .floating-right-image {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 200px;
-            height: auto;
-            z-index: 8;
-            pointer-events: none;
-            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
-            animation: float-up-down 3s ease-in-out infinite;
-        }
-
-        @keyframes float-up-down {
-            0%, 100% {
-                transform: translateY(-50%) translateY(0px);
-            }
-            50% {
-                transform: translateY(-50%) translateY(-20px);
-            }
-        }
-        /* Floating Image on Left Side */
-        .floating-left-image {
-            position: absolute;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 200px;
-            height: auto;
-            z-index: 8;
-            pointer-events: none;
-            filter: drop-shadow(0 0 15px rgba(163, 218, 255, 0.4));
-            animation: float-up-down 3s ease-in-out infinite;
-        }
-
-        @keyframes float-up-down {
-            0%, 100% {
-                transform: translateY(-50%) translateY(0px);
-            }
-            50% {
-                transform: translateY(-50%) translateY(-20px);
-            }
-        }
-        .navbar {
-            position: fixed; 
-            top: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 1rem 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            transition: background-color 0.4s ease;
-            height:100px;
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(10, 4, 31, 0.98); 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-        }
-
-        /* NEW NAVBAR STYLES */
-        .navbar-brand {
-            font-family: 'Teko', sans-serif; /* Changed font */
-            font-size: 2.5rem; /* Increased size */
-            font-weight: 700;
-            color: var(--color-accent-blue); /* Changed color for focus */
-            letter-spacing: 0.1em;
-            display: flex;
-            align-items: center;
-        }
-        
-        /* New Logo Placeholder Style */
-        .navbar-logo {
-            font-size: 1.8rem;
-            margin-right: 10px;
-            color: var(--color-card-accent);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Use gap for spacing instead of margin-left */
-        }
-
-        .nav-links a {
-            position: relative;
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s, transform 0.3s;
-            padding: 5px 0; /* Padding for hover effect */
-        }
-
-        /* New Hover Effect (Underline glow) */
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-btn-primary);
-            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-            box-shadow: 0 0 8px var(--color-btn-primary);
-        }
-
-        .nav-links a:hover {
-            color: var(--color-text-light);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-        
-        /* Resume Button Specific Style */
-        .btn-resume {
-            background-color: var(--color-card-accent);
-            color: var(--color-dark-purple);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            margin-left: 20px;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-            padding:40px;
-        }
-
-        .btn-resume:hover {
-            background-color: #ffda6a;
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 193, 7, 0.8);
-        }
-        .copy {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
-    text-align: center;
-    z-index: 100;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.copy p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 14px;
-    margin: 0;
-    letter-spacing: 0.5px;
-}
-
-.navbar .navbar-brand img{
-    width:150px;
-}
+         /* Small Mobile */
+         @media (max-width: 480px) {
+             .hero-title-large {
+                 font-size: 2.5rem;
+             }
+             .hero-ctas {
+                 flex-direction: column;
+                 align-items: center;
+             }
+             .btn-general {
+                 width: 100%;
+                 text-align: center;
+                 margin: 0.5rem 0;
+             }
+             .moon {
+                 width: 160px;
+                 height: 160px;
+             }
+             .card-wrapper {
+                 height: 450px; /* Taller for text */
+             }
+             .title {
+                 font-size: 2.5rem;
+             }
+         }
+         
+         /* Ensure astronaut is behind text on mobile */
+         @media (max-width: 768px) {
+             .astronaut-layer {
+                 z-index: 1; 
+                 opacity: 0.6;
+             }
+             .hero-content {
+                 z-index: 20;
+             }
+         }
+         
     </style>
 </head>
 <body>
@@ -1049,14 +1121,19 @@
 
    <nav class="navbar" id="main-navbar">
         <div class="navbar-brand">
-            <img src="./assets/logo.png" alt="">DRK
+            <img src="/assets/logo.png" alt=""> DRK
         </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
         <div class="nav-links">
-            <a href="#hero">Home</a>
-            <a href="#internships">Internships</a>
-            <a href="#skills-awards">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#hero" class="nav-item">Home</a>
+            <a href="#internships" class="nav-item">Internships</a>
+            <a href="#skills-awards" class="nav-item">Skills</a>
+            <a href="#projects" class="nav-item">Projects</a>
+            <a href="#contact" class="nav-item">Contact</a>
             
             <a href="YOUR_RESUME_URL" target="_blank" class="btn-resume">
                 <i class="fas fa-download"></i> RESUME
@@ -1064,21 +1141,20 @@
         </div>
     </nav>
 
-   
-
     <header class="hero-section" id="hero">
         <div class="parallax-layer moon-layer" data-speed="0.1">
-    <div class="moon">
-        <img id="profilePic" src="./assets/profilepic.png" alt="Rohith Kumar Dhamgatla Profile" class="profile-pic-moon">
-    </div>
-</div>
+            <div class="moon">
+                <img id="profilePic" src="/assets/profilepic.png" alt="Rohith Kumar Dhamgatla Profile" class="profile-pic-moon">
+            </div>
+        </div>
         
         <div class="parallax-layer astronaut-layer" data-speed="0.8" data-horizontal-max="80vw">
-            <img src="./assets/astronaut.png" alt="Astronaut Navigator" class="astronaut-img"> 
+            <img src="/assets/astronaut.png" alt="Astronaut Navigator" class="astronaut-img"> 
         </div>
 
-        <img src="./assets/earth.png" alt="Floating Object" class="floating-right-image">
-        <img src="./assets/saturn.png" alt="Floating Object" class="floating-left-image">
+        <img src="/assets/earth.png" alt="Floating Object" class="floating-right-image">
+        <img src="/assets/saturn.png" alt="Floating Object" class="floating-left-image">
+
         
         <div class="hero-content">
             <p class="hero-title-small">Beyond The Naked Eye</p>
@@ -1093,12 +1169,12 @@
             </div>
         </div>
     </header>
+
     <section class="projects-section" id="projects">
         <h2 class="section-title">FEATURED PROJECTS</h2>
         <div class="projects-grid">
             
-            <div class="card-wrapper">
-                <div class="card">
+            <div class="card-wrapper" onclick="void(0)"> <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url('https://i.pinimg.com/736x/59/32/01/5932011210b338ec7a0dfcc9549bd939.jpg'); 
              background-color: rgba(60, 10, 100, 0.4);
@@ -1125,7 +1201,7 @@
                 </div>
             </div>
 
-            <div class="card-wrapper">
+            <div class="card-wrapper" onclick="void(0)">
                 <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/bd/5a/69/bd5a69e5ac96d4ee9116862099fa2329.jpg); background-color: rgba(255, 69, 0, 0.4);">
@@ -1147,7 +1223,7 @@
                 </div>
             </div>
             
-            <div class="card-wrapper">
+            <div class="card-wrapper" onclick="void(0)">
                 <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/8d/08/49/8d08492d237383fbc6a46dd1f4d405ad.jpg); background-color: rgba(255, 215, 0, 0.3);">
@@ -1169,7 +1245,7 @@
                 </div>
             </div>
             
-            <div class="card-wrapper">
+            <div class="card-wrapper" onclick="void(0)">
                 <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/e0/40/11/e0401198d80013f7d63691484cd1b4c0.jpg); background-color: rgba(0, 150, 200, 0.4);">
@@ -1191,7 +1267,7 @@
                 </div>
             </div>
             
-            <div class="card-wrapper">
+            <div class="card-wrapper" onclick="void(0)">
                 <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url(https://i.pinimg.com/1200x/4d/1d/e4/4d1de433760105dcdc1d8b009c55f780.jpg); background-color: rgba(180, 50, 150, 0.4);">
@@ -1213,7 +1289,7 @@
                 </div>
             </div>
 
-            <div class="card-wrapper">
+            <div class="card-wrapper" onclick="void(0)">
                 <div class="card">
                     <div class="card-content">
                         <div class="card-front" style="background-image: url(https://i.pinimg.com/736x/35/c6/74/35c674d744672d42bd3d67eacb6f6f9b.jpg); background-color: rgba(200, 100, 50, 0.4);">
@@ -1251,13 +1327,19 @@
             <div class="intern-card">
                 <h3>Full Stack Developer Intern / AI Lead</h3>
                 <p class="company">RYL NEUROACADEMY</p>
-                <p>Leading developer of **Saathi.ai**, an AI-powered platform designed to help students with academic support, utilizing large language models.</p>
+                <p>Leading developer of Saathi.ai, an AI-powered platform designed to help students with academic support, utilizing large language models.</p>
             </div>
 
             <div class="intern-card">
                 <h3>Working Project - Health-Tech Startup</h3>
                 <p class="company">RYL NEUROACADEMY</p>
                 <p>Exploring and developing a health-tech startup idea aimed at creating a real-time health and wellness tracking platform.</p>
+            </div>
+
+              <div class="intern-card">
+                <h3>Google student Ambassdor</h3>
+                <p class="company">Working internship</p>
+                <p>Google Student Ambassador promoting AI literacy and awareness, conducting workshops on responsible AI, machine learning fundamentals, and ethical AI development across campus communities.</p>
             </div>
         </div>
         
@@ -1271,11 +1353,11 @@
             <ul class="skill-list">
                 <li class="skill-card">
                     <h3><i class="fas fa-terminal"></i> Programming Languages</h3>
-                    <div class="skill-content">C, C++, **Python**, Java, JavaScript, TypeScript, Haskell, SQL (MySQL)</div>
+                    <div class="skill-content">C, C++,Python, Java, JavaScript, TypeScript, Haskell, SQL (MySQL)</div>
                 </li>
                 <li class="skill-card">
                     <h3><i class="fas fa-laptop-code"></i> Web & Full Stack</h3>
-                    <div class="skill-content">**React.js**, Vite.js, Node.js, Express, **Flask**, FastAPI. Styling: Tailwind CSS, Bootstrap, ShadCN, Figma.</div>
+                    <div class="skill-content">React.js, Vite.js, Node.js, Express, Flask, FastAPI. Styling: Tailwind CSS, Bootstrap, ShadCN, Figma.</div>
                 </li>
                 <li class="skill-card">
                     <h3><i class="fas fa-brain"></i> AI, ML & Databases</h3>
@@ -1283,7 +1365,11 @@
                 </li>
                 <li class="skill-card">
                     <h3><i class="fas fa-microchip"></i> Systems & Tools</h3>
-                    <div class="skill-content">Embedded Systems: Raspberry Pi, ESP32, Arduino. Operating Systems: **Linux (Ubuntu)**, Windows. Version Control: Git.</div>
+                    <div class="skill-content">Embedded Systems: Raspberry Pi, ESP32, Arduino. Operating Systems: Linux (Ubuntu), Windows. Version Control: Git.</div>
+                </li>
+                 <li class="skill-card">
+                    <h3><i class="fas fa-camera"></i> Video editing</h3>
+                    <div class="skill-content">Crafting compelling visual narratives through professional video editing, color grading, and motion graphics using Adobe Premiere Pro, After Effects, and DaVinci Resolve.</div>
                 </li>
             </ul>
 
@@ -1305,6 +1391,10 @@
                     <h4><i class="fas fa-star"></i> Top 10% Performer Major Hackathons</h4>
                     <div class="award-content">Ranked in the top 10% in 3 national-level hackathons hosted by tier-1 tech companies.</div>
                 </li>
+                  <li class="award-card-new">
+                    <h4><i class="fas fa-star"></i> Job simulations</h4>
+                    <div class="award-content">Earned 18+ professional certifications from leading MNCs including Google, Microsoft, AWS, IBM, and Oracle across domains like cloud computing, AI/ML, cybersecurity, and data analytics.</div>
+                </li>
             </ul>
         </div>
     </section>
@@ -1321,14 +1411,14 @@
             
             <div class="footer-contact-form">
                 <h4><i class="fas fa-handshake"></i> Send Me a Message</h4>
-                <form action="https://formspree.io/f/xdkqwbda" method="POST">
+                <form action="YOUR_FORM_ENDPOINT" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="_replyto" required>
+                        <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
@@ -1362,7 +1452,6 @@
     </footer>
 
     <div class="copy">
-
         <p>copryrights@Rohith 2025</p>
     </div>
 
@@ -1375,7 +1464,39 @@
         const astronautElement = document.querySelector('.astronaut-layer');
         const astronautImg = document.querySelector('.astronaut-img');
         // NEW: Profile Picture Element
-const profilePic = document.getElementById('profilePic');
+        const profilePic = document.getElementById('profilePic');
+        
+        // Mobile Menu Logic
+        const mobileToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        if(mobileToggle && navLinks) {
+            mobileToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // Toggle icon
+                const icon = mobileToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close menu when a link is clicked
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = mobileToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+        }
         
         // New State Variables for Smoothing
         // Target is what the position SHOULD be (based on scroll)
@@ -1414,6 +1535,7 @@ const profilePic = document.getElementById('profilePic');
         function updateTargetPositions() {
             const scrollY = window.scrollY;
             const scrollHeight = document.body.scrollHeight - window.innerHeight;
+            const windowWidth = window.innerWidth;
             
             // Calculate the distance scrolled across the whole document (0 to 1)
             const scrollProgress = scrollHeight > 0 ? Math.min(1, scrollY / scrollHeight) : 0; 
@@ -1429,29 +1551,34 @@ const profilePic = document.getElementById('profilePic');
             parallaxLayers.forEach(layer => {
                 if (layer.classList.contains('moon-layer')) {
                     const speed = parseFloat(layer.getAttribute('data-speed'));
-                    const yPos = scrollY * speed;
+                    // On mobile, reduce speed to prevent large gaps
+                    const adjustedSpeed = windowWidth < 768 ? speed * 0.5 : speed;
+                    const yPos = scrollY * adjustedSpeed;
                     layer.style.transform = `translateY(${yPos}px)`;
                 }
             });
 
-            heroContent.style.transform = `translateY(${scrollY * -0.3}px) translateZ(0)`; 
+            // Adjust hero content parallax
+            const heroParallaxSpeed = windowWidth < 768 ? -0.1 : -0.3;
+            heroContent.style.transform = `translateY(${scrollY * heroParallaxSpeed}px) translateZ(0)`; 
+            
             if (profilePic) {
-    const triggerPoint = heroHeight * 0.1; // Start fade-in at 10% scroll
-    const fadeEnd = heroHeight * 0.5; // Finish fade-in at 50% scroll
+                const triggerPoint = heroHeight * 0.1; // Start fade-in at 10% scroll
+                const fadeEnd = heroHeight * 0.5; // Finish fade-in at 50% scroll
 
-    if (scrollY > triggerPoint) {
-        profilePic.classList.add('visible');
-    } else {
-        profilePic.classList.remove('visible');
-    }
-}
+                if (scrollY > triggerPoint) {
+                    profilePic.classList.add('visible');
+                } else {
+                    profilePic.classList.remove('visible');
+                }
+            }
             
             // --- B. ASTRONAUT TARGET POSITION CALCULATION ---
             if (astronautElement && scrollHeight > 0) {
                 
                 // Horizontal Movement
-                const startX = 100;
-                const endX = window.innerWidth + 50; 
+                const startX = windowWidth < 768 ? 20 : 100;
+                const endX = windowWidth + 50; 
                 targetX = startX + (endX - startX) * scrollProgress;
                 
                 // Vertical Position
@@ -1514,8 +1641,11 @@ const profilePic = document.getElementById('profilePic');
             const containerWidth = document.body.scrollWidth; 
             // We need to cover the total height, not just viewport height
             const totalContentHeight = document.body.scrollHeight * 1.5; 
+            
+            // Reduce particle count on mobile for performance
+            const particleCount = window.innerWidth < 768 ? count / 2 : count;
 
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
@@ -1546,12 +1676,14 @@ const profilePic = document.getElementById('profilePic');
         function createSpaceAnimations() {
             const container = document.getElementById('particles-js');
             if (!container) return;
+            
+            const isMobile = window.innerWidth < 768;
 
-            createAsteroids(container, 8);
+            createAsteroids(container, isMobile ? 4 : 8);
             createShootingStars(container);
-            createSatellites(container, 5);
-            createNebulae(container, 4);
-            createPlanetRings(container, 3);
+            createSatellites(container, isMobile ? 2 : 5);
+            createNebulae(container, isMobile ? 2 : 4);
+            createPlanetRings(container, isMobile ? 1 : 3);
         }
 
         function createAsteroids(container, count) {
@@ -1661,6 +1793,15 @@ const profilePic = document.getElementById('profilePic');
         window.addEventListener('resize', () => {
             updateParticlesContainerHeight();
             updateTargetPositions(); // Re-calculate target positions on resize
+        });
+        
+        // Add card toggle logic for mobile touch support
+        document.querySelectorAll('.card-wrapper').forEach(card => {
+            card.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    this.classList.toggle('active');
+                }
+            });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
