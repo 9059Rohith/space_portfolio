@@ -7,6 +7,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -25,6 +26,11 @@
             --color-glow-blue: rgba(163, 218, 255, 0.7);
             --color-card-accent: #ffc107; 
             --color-skill-bg: rgba(30, 15, 60, 0.6); 
+            
+            /* New Holographic Vars */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(163, 218, 255, 0.15);
+            --holo-glow: rgba(142, 89, 255, 0.2);
         }
 
         * {
@@ -570,107 +576,13 @@
          * ======================================
          */
         
-        /* INTERNSHIP */
-        .intern-section {
+        /* INTERNSHIP & SKILLS CONTAINERS */
+        .intern-section, .skills-awards-section {
             background-color: transparent;
             padding-bottom: 8rem;
             position: relative;
         }
-        
-        .intern-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .intern-card {
-            background-color: transparent;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            border: 2px solid transparent;
-        }
-        
-        .intern-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--color-btn-primary);
-            box-shadow: 0 0 25px rgba(142, 89, 255, 0.5);
-        }
-        
-        .intern-card h3 {
-            color: var(--color-card-accent);
-            margin-bottom: 0.5rem;
-            font-size: 1.4rem;
-        }
-        .intern-card .company {
-            color: var(--color-accent-blue);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
 
-        /* SKILLS */
-        .skills-awards-section {
-             background-color: transparent;
-            padding-bottom: 8rem;
-            position: relative;
-        }
-
-        .skills-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .skill-list, .award-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .skill-card, .award-card-new {
-            background: linear-gradient(135deg, rgba(30, 15, 60, 0.7), rgba(10, 4, 31, 0.9));
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(163, 218, 255, 0.1);
-            transition: transform 0.4s, box-shadow 0.4s;
-        }
-
-        .skill-card:hover, .award-card-new:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 40px rgba(142, 89, 255, 0.4);
-        }
-
-        .skill-card h3, .award-card-new h4 {
-            color: var(--color-accent-blue);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            border-bottom: 2px solid var(--color-btn-primary);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .skill-card h3 i, .award-card-new h4 i {
-            color: var(--color-card-accent);
-            margin-right: 10px;
-        }
-
-        .skill-content, .award-content {
-            color: var(--color-text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .award-card-new {
-            background: rgba(142, 89, 255, 0.15); 
-        }
-        
         /* PROJECTS */
         .projects-section {
             padding-top: 5rem;
@@ -815,7 +727,7 @@
             transition: 0.3s ease;
             display: inline-block;
         }
-        
+
         /* * ======================================
          * 6. FOOTER
          * ======================================
@@ -948,10 +860,355 @@
             letter-spacing: 0.5px;
         }
 
-        /* * ======================================
-         * 7. MEDIA QUERIES (FULL RESPONSIVENESS)
-         * ======================================
-         */
+        /* =========================================
+         * NEW CSS: CONSTELLATION TIMELINE
+         * ========================================= */
+        .constellation-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        /* The horizontal connecting line */
+        .constellation-path-line {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--color-accent-blue) 20%, 
+                var(--color-btn-primary) 80%, 
+                transparent 100%
+            );
+            opacity: 0.3;
+            z-index: 0;
+            box-shadow: 0 0 10px var(--color-btn-primary);
+        }
+
+        /* Traveling Rocket Animation */
+        .traveling-rocket {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            font-size: 1.5rem;
+            color: var(--color-card-accent);
+            transform: translateY(-50%) rotate(90deg);
+            z-index: 2;
+            filter: drop-shadow(0 0 10px var(--color-card-accent));
+            animation: rocket-travel 8s linear infinite;
+        }
+
+        @keyframes rocket-travel {
+            0% { left: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        .star-node {
+            position: relative;
+            z-index: 1;
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .star-node:hover {
+            transform: scale(1.05);
+        }
+
+        /* The glowing dot */
+        .star-point {
+            width: 20px;
+            height: 20px;
+            background-color: var(--color-dark-purple);
+            border: 2px solid var(--color-accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--color-accent-blue);
+            position: relative;
+            z-index: 2;
+            transition: background-color 0.3s;
+        }
+
+        .star-node:hover .star-point {
+            background-color: var(--color-accent-blue);
+            box-shadow: 0 0 25px var(--color-btn-primary);
+        }
+
+        /* Connecting vertical lines */
+        .star-node::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--color-accent-blue), transparent);
+            z-index: 0;
+        }
+
+        .star-node.top .star-point { margin-bottom: 20px; }
+        .star-node.bottom .star-point { margin-top: 20px; order: 1; }
+
+        .star-node.top::before { top: 20px; height: 60px; }
+        .star-node.bottom::before { bottom: 20px; height: 60px; transform: rotate(180deg); }
+
+        /* Content Box */
+        .star-content {
+            background: rgba(28, 16, 51, 0.8);
+            border: 1px solid rgba(163, 218, 255, 0.2);
+            padding: 1.2rem;
+            border-radius: 8px;
+            width: 240px;
+            text-align: left;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .star-node.top .star-content { margin-top: 40px; }
+        .star-node.bottom .star-content { margin-bottom: 40px; order: 0; }
+
+        .star-content h3 {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .star-content .company-name {
+            color: var(--color-card-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .star-content p {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .node-date {
+            position: absolute;
+            top: -12px;
+            right: 10px;
+            background: var(--color-btn-primary);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           6. SKILLS & ACHIEVEMENTS (The Enhanced Section)
+           ========================================================================== */
+        #skills-awards {
+            position: relative;
+            padding: 8rem 5%;
+            overflow: hidden;
+            /* IMPORTANT: Fixing the display issue with Z-index stacking */
+            z-index: 5; 
+        }
+
+        /* THE PLANETARY BACKGROUND */
+        .planet-bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind content */
+            /* Referenced Image */
+            background-image: url(''); 
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            opacity: 0.6; /* Dim slightly so text pops */
+            animation: panPlanet 40s ease-in-out infinite alternate;
+        }
+
+        /* Overlay to ensure text readability on top of image */
+        .planet-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: linear-gradient(to bottom, 
+                var(--color-dark-purple) 0%, 
+                rgba(10,4,31, 0.7) 30%, 
+                rgba(10,4,31, 0.4) 70%, 
+                var(--color-dark-purple) 100%);
+        }
+
+        @keyframes panPlanet {
+            0% { transform: scale(1.0) translateY(0); }
+            100% { transform: scale(1.1) translateY(-20px); }
+        }
+
+        .skills-content-wrapper {
+            position: relative;
+            z-index: 10; /* Above background */
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* HOLOGRAPHIC HUD GRID */
+        .holo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .holo-card {
+            background: rgba(16, 20, 30, 0.6); /* Semi-transparent dark */
+            border: 1px solid rgba(163, 218, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--ease-smooth);
+            clip-path: polygon(
+                20px 0, 100% 0, 
+                100% calc(100% - 20px), calc(100% - 20px) 100%, 
+                0 100%, 0 20px
+            ); /* Sci-fi Shape */
+        }
+
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-accent-blue), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .holo-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .holo-card:hover {
+            background: rgba(16, 20, 30, 0.8);
+            border-color: var(--color-accent-blue);
+            box-shadow: 0 0 30px rgba(163, 218, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .holo-icon {
+            font-size: 2.5rem;
+            color: var(--color-card-accent);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+        }
+
+        .holo-title {
+            color: var(--color-accent-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            background: rgba(142, 89, 255, 0.15);
+            color: var(--color-text-light);
+            border: 1px solid rgba(142, 89, 255, 0.3);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--color-btn-primary);
+            color: white;
+            box-shadow: 0 0 10px var(--color-btn-primary);
+        }
+
+        /* ACHIEVEMENT DATA LOGS */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .data-log {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            border-left: 4px solid var(--color-btn-primary);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .data-log:hover {
+            background: linear-gradient(90deg, rgba(142,89,255,0.1) 0%, transparent 100%);
+            padding-left: 2rem;
+            box-shadow: inset 10px 0 20px -10px rgba(142,89,255,0.3);
+        }
+
+        .log-icon-box {
+            min-width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: var(--color-card-accent);
+        }
+
+        .log-details h4 {
+            color: var(--color-text-light);
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        .log-details p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .log-status {
+            margin-left: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            padding: 2px 6px;
+            opacity: 0.7;
+        }
+
+        /* ==========================================================================
+           7. MEDIA QUERIES (FULL RESPONSIVENESS)
+           ========================================================================== */
          
          /* Laptop / Small Desktop */
          @media (max-width: 1200px) {
@@ -985,6 +1242,57 @@
              .footer-info-links {
                  flex-direction: column;
              }
+
+             /* Timeline becomes vertical list on Tablet/Mobile */
+            .constellation-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 3rem;
+            }
+
+            .constellation-path-line {
+                width: 2px;
+                height: 100%;
+                top: 0;
+                left: 3rem;
+                right: auto;
+                background: linear-gradient(180deg, var(--color-accent-blue), transparent);
+            }
+            
+            .traveling-rocket {
+                display: none; /* Hide rocket on vertical layout */
+            }
+
+            .star-node {
+                width: 100%;
+                flex-direction: row;
+                margin-bottom: 3rem;
+                align-items: flex-start;
+            }
+            
+            .star-node::before { display: none; /* Remove vertical connectors in this view */ }
+            
+            .star-point {
+                margin: 0 !important;
+                transform: translateX(-50%);
+                flex-shrink: 0;
+                margin-right: 20px !important;
+            }
+
+            .star-content {
+                margin: 0 !important;
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .star-node.bottom .star-content {
+                order: 1; /* Reset order for mobile */
+                margin-bottom: 0 !important;
+            }
+            
+            .star-node.bottom .star-point {
+                order: 0;
+            }
          }
 
          /* Mobile */
@@ -1056,11 +1364,6 @@
                  grid-template-columns: 1fr;
                  padding: 0 1rem;
              }
-             
-             /* Intern Cards */
-             .intern-grid {
-                 grid-template-columns: 1fr;
-             }
 
              /* Footer Stack */
              .site-footer {
@@ -1075,9 +1378,21 @@
                  flex: 1 1 100%;
                  width: 100%;
              }
+             
+             .astronaut-layer {
+                 z-index: 1; 
+                 opacity: 0.6;
+             }
+             .hero-content {
+                 z-index: 20;
+             }
+             
+             /* Hide Status on Mobile for cleaner look */
+             .log-status {
+                 display: none;
+             }
          }
 
-         /* Small Mobile */
          @media (max-width: 480px) {
              .hero-title-large {
                  font-size: 2.5rem;
@@ -1103,17 +1418,6 @@
              }
          }
          
-         /* Ensure astronaut is behind text on mobile */
-         @media (max-width: 768px) {
-             .astronaut-layer {
-                 z-index: 1; 
-                 opacity: 0.6;
-             }
-             .hero-content {
-                 z-index: 20;
-             }
-         }
-         
     </style>
 </head>
 <body>
@@ -1135,16 +1439,16 @@
             <a href="#projects" class="nav-item">Projects</a>
             <a href="#contact" class="nav-item">Contact</a>
             
-            <a href="YOUR_RESUME_URL" target="_blank" class="btn-resume">
-                <i class="fas fa-download"></i> RESUME
-            </a>
+          <a href="assets/resume_draft_1.pdf" download="Rohith_Kumar_Resume.pdf" class="btn-resume">
+    <i class="fas fa-download"></i> RESUME
+</a>
         </div>
     </nav>
 
     <header class="hero-section" id="hero">
         <div class="parallax-layer moon-layer" data-speed="0.1">
             <div class="moon">
-                <img id="profilePic" src="/assets/profilepic.png" alt="Rohith Kumar Dhamgatla Profile" class="profile-pic-moon">
+                <img id="profilePic" src="assets/profilepic.png" alt="Rohith Kumar Dhamgatla Profile" class="profile-pic-moon">
             </div>
         </div>
         
@@ -1316,91 +1620,160 @@
 
     <section class="intern-section" id="internships">
         <h2 class="section-title">PROFESSIONAL JOURNEY</h2>
-        <div class="intern-grid">
+        
+        <div class="constellation-container">
+            <div class="constellation-path-line"></div>
+            <div class="traveling-rocket">
+                <i class="fas fa-space-shuttle"></i>
+            </div>
+
+            <div class="star-node top" data-date="Internship">
+                <div class="star-point"></div>
+                <div class="star-content">
+                    <span class="node-date">2024 - Present</span>
+                    <h3>Software Dev Engineer Intern</h3>
+                    <h4 class="company-name">BLUESTOCK FINTECH</h4>
+                    <p>Architected a Real-time IPO Web App (React.js, Flask, PostgreSQL) handling 500+ records.</p>
+                </div>
+            </div>
+
+            <div class="star-node bottom" data-date="Internship">
+                <div class="star-point"></div>
+                <div class="star-content">
+                    <span class="node-date">2024</span>
+                    <h3>Full Stack Developer / AI Lead</h3>
+                    <h4 class="company-name">RYL NEUROACADEMY</h4>
+                    <p>Led development of Saathi.ai, an AI-powered academic support platform using LLMs.</p>
+                </div>
+            </div>
+
+            <div class="star-node top" data-date="Project">
+                <div class="star-point"></div>
+                <div class="star-content">
+                    <span class="node-date">Ongoing</span>
+                    <h3>Health-Tech Startup Lead</h3>
+                    <h4 class="company-name">RYL NEUROACADEMY</h4>
+                    <p>Developing a real-time health and wellness tracking platform ecosystem.</p>
+                </div>
+            </div>
+
+            <div class="star-node bottom" data-date="Ambassador">
+                <div class="star-point"></div>
+                <div class="star-content">
+                    <span class="node-date">2023 - 2024</span>
+                    <h3>Google Student Ambassador</h3>
+                    <h4 class="company-name">GOOGLE / CAMPUS</h4>
+                    <p>Conducted AI literacy workshops, ethical AI seminars, and ML fundamentals training.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills-awards">
+        
+        <div class="planet-bg-layer"></div>
+        <div class="planet-overlay"></div>
+
+        <div class="skills-content-wrapper">
+            <h2 class="section-title">Holographic Armory</h2>
+
+            <div class="holo-grid">
+                <div class="holo-card">
+                    <div class="holo-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="holo-title">Core Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="holo-card">
+                    <div class="holo-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="holo-title">Full Stack</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Vite</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Tailwind</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="holo-card" style="border-color: var(--color-btn-primary);">
+                    <div class="holo-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="holo-title">AI & Intelligence</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Transformers</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">DeepSeek</span>
+                    </div>
+                </div>
+
+                <div class="holo-card">
+                    <div class="holo-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 class="holo-title">Systems & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Raspberry Pi</span>
+                        <span class="skill-tag">ESP32</span>
+                        <span class="skill-tag">Arduino</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 6rem;">Mission Logs</h2>
             
-            <div class="intern-card">
-                <h3>Software Development Engineer Intern</h3>
-                <p class="company">BLUESTOCK FINTECH</p>
-                <p>Architected and deployed a Real-time IPO Web Application handling 500+ financial records. Tech Stack: React.js, Flask, PostgreSQL, NSE/BSE APIS.</p>
-            </div>
+            <div class="achievements-grid">
+                <div class="data-log">
+                    <div class="log-icon-box"><i class="fas fa-trophy"></i></div>
+                    <div class="log-details">
+                        <h4>3rd Place - FIN HACK101</h4>
+                        <p>Developed Fake News Detection System (BERT) with 94% accuracy.</p>
+                    </div>
+                    <div class="log-status">[VERIFIED]</div>
+                </div>
 
-            <div class="intern-card">
-                <h3>Full Stack Developer Intern / AI Lead</h3>
-                <p class="company">RYL NEUROACADEMY</p>
-                <p>Leading developer of Saathi.ai, an AI-powered platform designed to help students with academic support, utilizing large language models.</p>
-            </div>
+                <div class="data-log">
+                    <div class="log-icon-box"><i class="fas fa-code-branch"></i></div>
+                    <div class="log-details">
+                        <h4>Finalist - CodeVita</h4>
+                        <p>Selected for final round in India's premier coding contest (IIT Madras).</p>
+                    </div>
+                    <div class="log-status">[ELITE]</div>
+                </div>
 
-            <div class="intern-card">
-                <h3>Working Project - Health-Tech Startup</h3>
-                <p class="company">RYL NEUROACADEMY</p>
-                <p>Exploring and developing a health-tech startup idea aimed at creating a real-time health and wellness tracking platform.</p>
-            </div>
+                <div class="data-log">
+                    <div class="log-icon-box"><i class="fas fa-swimmer"></i></div>
+                    <div class="log-details">
+                        <h4>State Swimmer - APCM Cup</h4>
+                        <p>Represented Andhra Pradesh in 2020 State Championships.</p>
+                    </div>
+                    <div class="log-status">[ATHLETE]</div>
+                </div>
 
-              <div class="intern-card">
-                <h3>Google student Ambassdor</h3>
-                <p class="company">Working internship</p>
-                <p>Google Student Ambassador promoting AI literacy and awareness, conducting workshops on responsible AI, machine learning fundamentals, and ethical AI development across campus communities.</p>
+                <div class="data-log">
+                    <div class="log-icon-box"><i class="fas fa-certificate"></i></div>
+                    <div class="log-details">
+                        <h4>18+ Industry Certifications</h4>
+                        <p>Google, Microsoft, AWS, IBM, Oracle (Cloud & AI Specializations).</p>
+                    </div>
+                    <div class="log-status">[ACQUIRED]</div>
+                </div>
             </div>
         </div>
-        
     </section>
     
-    <section class="skills-awards-section" id="skills-awards">
-        <h2 class="section-title">SKILLS & ACHIEVEMENTS</h2>
-        
-        <div class="skills-container">
-            <h2 class="section-title" style="margin-bottom: 1.5rem;">CORE SKILLS</h2>
-            <ul class="skill-list">
-                <li class="skill-card">
-                    <h3><i class="fas fa-terminal"></i> Programming Languages</h3>
-                    <div class="skill-content">C, C++,Python, Java, JavaScript, TypeScript, Haskell, SQL (MySQL)</div>
-                </li>
-                <li class="skill-card">
-                    <h3><i class="fas fa-laptop-code"></i> Web & Full Stack</h3>
-                    <div class="skill-content">React.js, Vite.js, Node.js, Express, Flask, FastAPI. Styling: Tailwind CSS, Bootstrap, ShadCN, Figma.</div>
-                </li>
-                <li class="skill-card">
-                    <h3><i class="fas fa-brain"></i> AI, ML & Databases</h3>
-                    <div class="skill-content">TensorFlow, PyTorch, OpenCV, Scikit-learn, **Transformers**, **RAG**, DeepSeek. Databases: MySQL, PostgreSQL, **MongoDB**.</div>
-                </li>
-                <li class="skill-card">
-                    <h3><i class="fas fa-microchip"></i> Systems & Tools</h3>
-                    <div class="skill-content">Embedded Systems: Raspberry Pi, ESP32, Arduino. Operating Systems: Linux (Ubuntu), Windows. Version Control: Git.</div>
-                </li>
-                 <li class="skill-card">
-                    <h3><i class="fas fa-camera"></i> Video editing</h3>
-                    <div class="skill-content">Crafting compelling visual narratives through professional video editing, color grading, and motion graphics using Adobe Premiere Pro, After Effects, and DaVinci Resolve.</div>
-                </li>
-            </ul>
-
-            <h2 class="section-title" style="margin-top: 5rem; margin-bottom: 1.5rem;">AWARDS & RECOGNITION</h2>
-            <ul class="award-list">
-                <li class="award-card-new">
-                    <h4><i class="fas fa-trophy"></i> 3rd Place Winner - FIN HACK101</h4>
-                    <div class="award-content">Developed an AI-powered Fake News Detection System using BERT with 94% accuracy.</div>
-                </li>
-                <li class="award-card-new">
-                    <h4><i class="fas fa-code"></i> Finalist - CodeVita, IIT Madras</h4>
-                    <div class="award-content">Selected for the final round among nationwide participants in India's premier coding contests.</div>
-                </li>
-                <li class="award-card-new">
-                    <h4><i class="fas fa-medal"></i> State-level Swimmer</h4>
-                    <div class="award-content">Participated in the APCM Cup 2020 representing Andhra Pradesh.</div>
-                </li>
-                <li class="award-card-new">
-                    <h4><i class="fas fa-star"></i> Top 10% Performer Major Hackathons</h4>
-                    <div class="award-content">Ranked in the top 10% in 3 national-level hackathons hosted by tier-1 tech companies.</div>
-                </li>
-                  <li class="award-card-new">
-                    <h4><i class="fas fa-star"></i> Job simulations</h4>
-                    <div class="award-content">Earned 18+ professional certifications from leading MNCs including Google, Microsoft, AWS, IBM, and Oracle across domains like cloud computing, AI/ML, cybersecurity, and data analytics.</div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    
-
     <footer class="site-footer" id="contact">
         <div class="footer-brand">
             <h4>ROHITH KUMAR DHAMGATLA</h4>
@@ -1810,6 +2183,49 @@
                 createSpaceAnimations();
                 updateTargetPositions(); // Initial calculation of target position
                 requestAnimationFrame(animate); // Start the continuous animation loop
+                
+                // --- 8. CONSTELLATION ANIMATION TRIGGER ---
+                const constellationSection = document.getElementById('internships');
+                const starNodes = document.querySelectorAll('.star-node');
+
+                const observerOptions = {
+                    threshold: 0.3
+                };
+
+                const constellationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Animate nodes in sequence
+                            starNodes.forEach((node, index) => {
+                                setTimeout(() => {
+                                    node.style.opacity = '1';
+                                    node.style.transform = 'translateY(0)';
+                                }, index * 400); // 400ms delay between each star
+                            });
+                            
+                            // Optional: trigger rocket animation reset
+                            const rocket = document.querySelector('.traveling-rocket');
+                            if(rocket) {
+                                rocket.style.animation = 'none';
+                                rocket.offsetHeight; /* trigger reflow */
+                                rocket.style.animation = 'rocket-travel 8s linear infinite';
+                            }
+                            
+                            constellationObserver.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                if (constellationSection) {
+                    // Initialize nodes as hidden for animation
+                    starNodes.forEach(node => {
+                        node.style.opacity = '0';
+                        node.style.transform = 'translateY(20px)';
+                        node.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    });
+                    constellationObserver.observe(constellationSection);
+                }
+
             }, 500); 
         });
     </script>
